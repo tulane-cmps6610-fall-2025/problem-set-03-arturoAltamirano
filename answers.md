@@ -77,9 +77,11 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
     This program does 3 total operations: 
         
-        The evaluation stub checks if y = x
-        The initial case test of our input and subsequent base tests 
-        And the recursive call and associated index adjustment
+        The evaluation stub checks if y = x according to duplicates array  -----> O(n)
+
+        The initial case test of our input and subsequent base tests -----> (n - 1)
+
+        The recursive call and associated index adjustment -----> ... + 1
 
     This can be denoted as: 
 
