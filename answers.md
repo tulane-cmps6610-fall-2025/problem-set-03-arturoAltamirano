@@ -70,12 +70,37 @@ Place all written answers from `problemset-03.md` here for easier grading.
     3. If the evaluator determines according to our current index and the 
        seen list that we have seen the current value before (y, x::xs) = (y = x) then it will return the boolean of this 
 
-    4. Else we need to add xs to the seen list using xs::seen, updating the current x state to be the recursive call of this operation 
+    4. Else we need to add xs to the seen list using xs::seen, updating 
+       the current x state to be the recursive call of this operation 
+
+- **2c.**
+
+    This program does 3 total operations: 
+        
+        The evaluation stub checks if y = x
+        The initial case test of our input and subsequent base tests 
+        And the recursive call and associated index adjustment
+
+    This can be denoted as: 
+
+        T(n-1) + O(n) + 1
+
+        with: n-1 being the size of our original list, which we are traversing and O(n) + 1 being the duplicates list which we are growing and evaluating according to size n 
+
+        the recurrence unfolding: 
+
+        T(n) = (T(n - 2) + T(n - 1) + n) + 1
+
+        T(n) = (T(n - 3) + T(n - 2) + T(n - 1) + n<sup>2</sup>)
+
+        We can denote this as balanced as the arrays only increment/decrement by 1 at each step, but that growth is quadratic since n increases by a exponent factor for every iteration. 
+
+        Interesting to note that, even with work being largest at the root, the factor decrease is still 'linearly constant' and not by a constant fraction, so we cannot say it is leaf dominated.
+
+        O(n<sup>2</sup>)
+
 
 - **3b.**
-
-    This program does 
-
 
 
 - **3d.**
