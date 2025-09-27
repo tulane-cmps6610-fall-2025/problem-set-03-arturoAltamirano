@@ -56,13 +56,23 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
         T(n) = 4T(n/16) + 2(n/4) + n^2 + 2
 
-    leaf dominated, so use n<sup>log <sub>b</sub> a</sup>
+    you can set this guy to a constant at this point:
 
-     **asymptotic notation: O(n <sup> log <sub> 2 </sub> (2)</sup>)**
+    2<sup>log 2 n</sup>T(1) + log <sub>2</sub>i * n
+
+    this becomes equivalent to:
+
+    n * 1 + n log<sub>2</sub> * n
+
+    we can state that log<sub>7</sub> n dominates the constant at large growth,
+         
+    we can then simplify to:
+
+    **asymptotic notation: O(n log n)**
 
     Work: O(n)
 
-    Span: O(log n)
+    Span: O(n log n)
 
 - **1e.**
 
