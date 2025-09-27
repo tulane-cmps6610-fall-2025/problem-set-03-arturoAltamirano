@@ -6,24 +6,67 @@
 
 Place all written answers from `problemset-03.md` here for easier grading.
 
-
-
-
 - **1b.**
 
-    Work: O(n)
+    this iterative algorithm has the following steps: 
 
-    Span: O(n)
+    1. check the base case, if n is not of length 0 -----> + 1
+
+    2. evaluate the boolean condition, is our index equivalent to our
+       target for every element in the list  -----> O(n - 1)
+
+    this can be denoted as: 
+
+        T(n - 1) + 1
+
+        T((n - 2) + 1) + 1 
+
+        T(n - 2) + 2
+
+        consider that this is essentially: 
+
+        T(n - c) + 2c
+
+        just n plus/minus some constant - if you ignore the constants as n grows increasingly large...
+        
+        you are left with simply: T(n)
+
+    **asymptotic notation: O(n)**
 
 
 - **1d.**
+
+    this divide and conquer algorithm has the following steps: 
+
+    1. check the base case, if n is not of length 0 -----> + 1
+
+    2. divide the input into 2 sublists, do this recursively until it is 
+       no longer possible. -----> 2/n
+
+    3. in parallel, check all of these divisions for equivalence to our 
+       target value ------> 2w
+    
+    4. recombine these results to achieve our final output ----> n
+
+    this can be denoted as: 
+
+        T(n) = 2T(n/2) + n + 1
+
+        T(n) = 2(2T(n/4) + (n/2)) + n + 1
+
+        T(n) = 4T(n/16) + 2(n/4) + n^2 + 2
+
+    leaf dominated, so use n<sup>log <sub>b</sub> a</sup>
+
+     **asymptotic notation: O(n <sup> log <sub> 2 </sub> (2)</sup>)**
 
     Work: O(n)
 
     Span: O(log n)
 
-
 - **1e.**
+
+
 
     
 
@@ -85,24 +128,28 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
     This can be denoted as: 
 
-        T(n-1) + O(n) + 1
+            T(n-1) + O(n) + 1
 
-        with: n-1 being the size of our original list, which we are traversing and O(n) + 1 being the duplicates list which we are growing and evaluating according to size n 
+            with: n-1 being the size of our original list, which we are traversing and O(n) + 1 being the duplicates list which we are growing and evaluating according to size n 
 
-        the recurrence unfolding: 
+            the recurrence unfolding: 
 
-        T(n) = (T(n - 2) + T(n - 1) + n) + 1
+            T(n) = (T(n - 2) + T(n - 1) + n) + 1
 
-        T(n) = (T(n - 3) + T(n - 2) + T(n - 1) + n<sup>2</sup>)
+            T(n) = (T(n - 3) + T(n - 2) + T(n - 1) + n ^ 2)
 
-        We can denote this as balanced as the arrays only increment/decrement by 1 at each step, but that growth is quadratic since n increases by a exponent factor for every iteration. 
+            We can denote this as balanced as the arrays only increment/decrement by 1 at each step, but that growth is quadratic since n increases by a exponent factor for every unfolding. This is because we need to re-traverse our duplicates array at every iteration to see if the current index is a duplicate. 
 
-        Interesting to note that, even with work being largest at the root, the factor decrease is still 'linearly constant' and not by a constant fraction, so we cannot say it is leaf dominated.
+            Interesting to note that, even with work being largest at the root, the factor decrease is still 'linearly constant' and not by a constant fraction, so we cannot say it is leaf dominated.
 
-        O(n<sup>2</sup>)
+    **asymptotic notation: O(n<sup>2</sup>)**
 
 
 - **3b.**
+
+
+
+
 
 
 - **3d.**
@@ -112,22 +159,6 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
 
 - **3f.**
-
-
-
-
-- **4a.**
-
-
-
-
-- **4b.**
-
-
-
-
-
-- **4c.**
 
 
 
