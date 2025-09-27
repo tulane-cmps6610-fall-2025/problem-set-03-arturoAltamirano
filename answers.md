@@ -25,7 +25,7 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
         consider that this is essentially: 
 
-        T(n - c) + 2c
+        T(n - c) + 1 * c
 
         just n plus/minus some constant - if you ignore the constants as n grows increasingly large...
         
@@ -80,7 +80,7 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
 - **1e.**
 
-    
+
 
 
 
@@ -163,18 +163,62 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
 - **3b.**
 
+    This recursive iteration has a singular comparison and an addition operation. 
 
+        T(n) = T(n - 1) + O(1)
 
+        = T((n - 2) + 1) + 1
 
+        = T(n - 3) + 1 + +1 
 
+        this is of linear balanced growth and has the fundamental form:
+
+        T(n - c) + (1 * c)
+
+        the constants are dominated by the size of n, with no parralelization opportunity, and as such:
+
+    **Work = O(n)**
+
+    **Span = O(n)**
 
 - **3d.**
 
+    This recursive scan has the following steps: 
 
+        T(n) = T(n - 1) + O(n) + 1
 
+        T((n - 2) + (n - 1) + n +  1)
 
+        T(n - 3) + (n - 2) + (n - 1) + n + 3
+
+        what method to use to derive this? 
+
+    **O(n<sup>2</sup>)**
 
 - **3f.**
+
+    This divide and conquer algorithm has 3 steps: 
+
+        divide the input into halves until no longer possible -----> n/2
+
+        evaluate equivalence to strings -----> +1
+
+        merge all divisions and evaluations together -----> 2T
+
+        this can be denoted as: 
+
+        2T(n/2) + 1
+
+        2(2T(n/4) + (n/2)) + 2
+
+        4T(n/16) + 2(n/4) + 3
+
+    leaf dominated, so use n <sup> log <sub>b</sub> a </sup>
+
+    n<sup>log<sub>2</sub>2</sup> == n<sup>1</sup>
+
+    **O(n)**
+
 
 
 
