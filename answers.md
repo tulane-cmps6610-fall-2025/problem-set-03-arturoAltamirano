@@ -3,7 +3,6 @@
 
 **Name:** Arturo Altamirano
 
-
 Place all written answers from `problemset-03.md` here for easier grading.
 
 - **1b.**
@@ -21,7 +20,7 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
         T((n - 2) + 1) + 1 
 
-        T(n - 2) + 2
+        T(n - 3) + 3
 
         consider that this is essentially: 
 
@@ -34,6 +33,21 @@ Place all written answers from `problemset-03.md` here for easier grading.
     **Work: O(n)**
 
     **Span: O(n)**
+
+    Within here is my inductive proof for these assertions. I understand these are unneccesary, but I wanted the practice after doing this incorrectly on HW1:
+
+    <details>
+    Inductive Hypothesis: In every recursive call of iterate, it will return the boolean evaluation result comparing our target to our current index. 
+
+    Base Case: 
+
+    (n - 1) + 1
+
+
+
+    </details>
+
+
 
 
 - **1d.**
@@ -84,7 +98,7 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
     The recurrence can be taken as: 
 
-        T(n) = T(2n/3) + T(n/3) + n+ 1
+        T(n) = T(2n/3) + T(n/3) + n + 1
 
         we can unwind both of these to get: 
 
@@ -94,13 +108,9 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
     we can note that the left portion is beginning to dominate this process
 
-    analyzing it's structure we can determine using the master theorem that: 
+    analyzing it's structure and root dominated growth we can see that c * n in the master case is:
 
-    O(n <sup>log <sub>3</sub> 1</sup>)
-
-    O(n<sup>0</sup>)
-
-    **work: O(n)**
+    **work:  O(n)**
 
     **span: O(n)**
 
