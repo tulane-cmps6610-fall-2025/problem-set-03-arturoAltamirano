@@ -9,16 +9,16 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
     this iterative algorithm has the following steps: 
 
-    1. check the base case, if n is not of length 0 -----> + 1
+    1. check the base case, ensure n is not of length 0: O(1)
 
-    2. evaluate the boolean condition, is our index equivalent to our
-       target for every element in the list  -----> O(n - 1)
+    2. evaluate the boolean condition, is our index equivalent
+       to our target for every element in the list: O(n - 1)
 
-    this can be denoted as: 
+        unrolling: 
 
         T(n - 1) + 1
 
-        T((n - 2) + 1) + 1 
+        T(n - 2) + 1 + 1 
 
         T(n - 3) + 3
 
@@ -28,54 +28,30 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
         just n plus/minus some constant - if you ignore the constants as n grows increasingly large...
         
-        you are left with simply: T(n)
+        you are left with clear linear growth
 
     **Work: O(n)**
 
     **Span: O(n)**
 
-    Within here is my inductive proof for these assertions. I understand these are unneccesary, but I wanted the practice after doing this incorrectly on HW1:
-
-    <details>
-    Inductive Hypothesis: In every recursive call of iterate, it will return the boolean evaluation result comparing our target to our current index. 
-
-    Base Case: c = 2, and n<sub>0</sub> = 2
-
-    (n - 1) + 1 <= c * n
-
-    the -1 and +1 can be eliminated, leaving: 
-
-    n <= c * n
-
-    Let c = 2 and n<sub>0</sub> = 2
-
-    For all n >= n<sub>0</sub> we have:
-        2 <= n 
-
-        n <= 2n
-    </details>
-
 - **1d.**
 
     this divide and conquer algorithm has the following steps: 
 
-    1. check the base case, if n is not of length 0 -----> + 1
+    1. divide the input into 2 sublists, do this recursively until it is no longer possible: 2/n
 
-    2. divide the input into 2 sublists, do this recursively until it is 
-       no longer possible. -----> 2/n
-
-    3. in parallel, check all of these divisions for equivalence to our 
-       target value ------> 2w
+    2. in parallel, check all of these divisions for equivalence to our 
+       target value: 2w
     
-    4. recombine these results to achieve our final output ----> n
+    3. recombine these results to achieve our final output: n
 
     this can be denoted as: 
 
-        T(n) = 2T(n/2) + n + 1
+        T(n) = 2T(n/2) + n 
 
         T(n) = 2(2T(n/4) + (n/2)) + 2n
 
-        T(n) = 4T(n/8) + 2(n/4) + 3n
+        T(n) = 4(2T(n/8) + 2(n/4)) + 3n
 
     we begin to see the form: 
 
@@ -83,7 +59,7 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
     you can set this guy to a constant at this point:
 
-    2<sup>log 2 n</sup> T(1) + log <sub>2</sub>i * n
+    2<sup>log 2 n</sup> T(1) + log <sub>2</sub> i * n
 
     this becomes equivalent to:
 
@@ -93,33 +69,9 @@ Place all written answers from `problemset-03.md` here for easier grading.
          
     we can then simplify to:
 
-    **Work: O(n)**
+    **Work: O(n log n)**
 
-    **Span: O(n log n)**
-
-    Proof: 
-    <details>
-    Inductive Hypothesis: In every recursive call of reduce, this algorithm will split it's input and evaluate for equivalence on these subsets in parrallel 
-
-    Base Case: c = 2, and n<sub>0</sub> = 2
-
-    2T(n/2) <= c * n
-
-    
-
-    we can manipulate this to get: 
-
-    
-
-    Let c = 2 and n<sub>0</sub> = 2
-
-    For all n >= n<sub>0</sub> we have:
-        2 <= n 
-
-        n <= 2n
-    </details>
-
-    </details>
+    **Span: O(n)**
 
 - **1e.**
 
@@ -127,11 +79,11 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
     The recurrence can be taken as: 
 
-        T(n) = T(2n/3) + T(n/3) + n + 1
+        T(n) = T(2n/3) + T(n/3) + 1
 
         we can unwind both of these to get: 
 
-        (2n/9 + 4n/9 + n/9) + (n/9 + n + n)
+        (2n/9 + 4n/9 + n/9) + (n/9 + 1)
 
         (4n/27 + 8n/27 + 2n/3) + (n/27 + 1 + 1) 
 
@@ -139,17 +91,17 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
     analyzing it's structure and root dominated growth we can see that c * n in the master case is:
 
-    **work:  O(n)**
+    **work: O(n)**
 
-    **span: O(n)**
+    **span: O(log n)**
 
 - **2a.**
 
     I am constructing this according to documentation in the CMU notebook: https://www.cs.cmu.edu/~rwh/isml/book.pdf
 
-    I designed this to be recursive, as Standard ML seems to encourage iteration in the form of recursion according to Chapter 7.2 and 9.
+    I designed this to be recursive, as Standard ML seems to expect all iteration in the form of recursion according to Chapter 7.2 and 9.
 
-    I am also adapting the matching conventions outlined in 27.2 and in the regular expression package
+    I am also adapting the matching conventions outlined in 27.2 and in the regular expression package.
 
     Given [list A] of n unsorted elements with duplicates:
 
@@ -176,37 +128,31 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
     Basic outline: 
 
-    1. Pass our list to recurseCheck and begin assigning values across 
-       the array. Assuming = [] base case passed
+    1. Pass our list to recurseCheck and begin assigning values across the array. Assuming = [] base case passed
 
-    2. For every element x, we compare to the remaining tail xs, we then
-       pass to evaluator to determine our duplicates list operation
+    2. For every element x, we compare to the remaining tail xs, we then pass to evaluator to determine our duplicates list operation
 
-    3. If the evaluator determines according to our current index and the 
-       seen list that we have seen the current value before (y, x::xs) = (y = x) then it will return the boolean of this 
+    3. If the evaluator determines according to our current index and the seen list that we have seen the current value before (y, x::xs) = (y = x) then it will return the boolean of this 
 
-    4. Else we need to add xs to the seen list using xs::seen, updating 
-       the current x state to be the recursive call of this operation 
+    4. Else we need to add xs to the seen list using xs::seen, updating the current x state to be the recursive call of this operation 
 
-- **2c.**
+- **2b.**
 
     This program does 3 total operations: 
         
-        The evaluation stub checks if y = x according to duplicates array  -----> O(n)
+        The evaluation stub checks if y = x according to duplicates array: O(n)
 
-        The initial case test of our input and subsequent base tests -----> (n - 1)
-
-        The recursive call and associated index adjustment -----> ... + 1
+        The initial case test of our input and subsequent base tests: (n - 1)
 
     This can be denoted as: 
 
-            T(n-1) + O(n) + 1
+            T(n-1) + O(n)
 
             with: n-1 being the size of our original list, which we are traversing and O(n) + 1 being the duplicates list which we are growing and evaluating according to size n 
 
             the recurrence unfolding: 
 
-            T(n) = (T(n - 2) + T(n - 1) + n) + 1
+            T(n) = T(n - 2) + T(n - 1) + n
 
             T(n) = (T(n - 3) + T(n - 2) + T(n - 1) + n ^ 2)
 
@@ -214,22 +160,30 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
             Interesting to note that, even with work being largest at the root, the factor decrease is still 'linearly constant' and not by a constant fraction, so we cannot say it is leaf dominated.
 
-    **asymptotic notation: O(n<sup>2</sup>)**
+    **work = O(n<sup>2</sup>)**
+
+    **span = O(n<sup>2</sup>)**
+
+- **2c.**
+
+
+
+
 
 
 - **3b.**
 
-    This recursive iteration has a singular comparison and an addition operation. 
+    This recursive iteration has a singular comparison (n - 1) and an addition operation (+1). 
 
-        T(n) = T(n - 1) + O(1)
+        T(n) = T(n - 1) + c * 1
 
-        = T((n - 2) + 1) + 1
+        = T(n - 2) + 1 + 1
 
-        = T(n - 3) + 1 + +1 
+        = T(n - 3) + 1 ... + 1 
 
         this is of linear balanced growth and has the fundamental form:
 
-        T(n - c) + (1 * c)
+        T(n - c) + (c * 1)
 
         the constants are dominated by the size of n, with no parralelization opportunity, and as such:
 
@@ -239,41 +193,64 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
 - **3d.**
 
-    This recursive scan has the following steps: 
+    This recursive scan has the following steps:
 
-        T(n) = T(n - 1) + O(n) + 1
+    1. maps to the boolean evaluation of an input 
 
-        T((n - 2) + (n - 1) + n +  1)
+    2. reduce folds the input, passes to our driving function
+       and returns a singular input
+       
+    3. evalautes if the sequence has been fully traversed
+
+    it can be denoted as: 
+
+        T(n) = T(n - 1) + c * n
+
+        T((n - 2) + (n - 1 + n) +  1)
 
         T(n - 3) + (n - 2) + (n - 1) + n + 3
 
-        what method to use to derive this? 
+    use gauss' formula for this n-series 
 
-    **O(n<sup>2</sup>)**
+    n(n + 1)/2 which is equivalent to O(n<sup>2</sup>) across the series
+
+    **work = O(n<sup>2</sup>)**
+
+    **span = O(n<sup>2</sup>)**
 
 - **3f.**
 
     This divide and conquer algorithm has 3 steps: 
 
-        divide the input into halves until no longer possible -----> n/2
+        divide the input into halves until no longer possible:  n/2
 
-        evaluate equivalence to strings -----> +1
+        evaluate equivalence to strings: +1
 
-        merge all divisions and evaluations together -----> 2T
+        merge all divisions and evaluations together: 2T
 
         this can be denoted as: 
 
         2T(n/2) + 1
 
-        2(2T(n/4) + (n/2)) + 2
+        2(2T(n/4)) + 2
 
-        4T(n/16) + 2(n/4) + 3
+        4T(n/8) + 3
 
-    leaf dominated, so use n <sup> log <sub>b</sub> a </sup>
+    we can see that this is leaf dominated, and takes the form: 
+
+    2<sup>k</sup>T(n/2<sup>k</sup>) + k
+
+    we can use the master theorem case: 
+    
+    n <sup> log <sub>b</sub> a </sup>
+
+    to determine that this is of:
 
     n<sup>log<sub>2</sub>2</sup> == n<sup>1</sup>
 
-    **O(n)**
+    **work: O(n)**
+
+    **span: O(log n)**
 
 
 
