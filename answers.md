@@ -31,8 +31,6 @@ Place all written answers from `problemset-03.md` here for easier grading.
         
         you are left with simply: T(n)
 
-    **asymptotic notation: O(n)**
-
     **Work: O(n)**
 
     **Span: O(n)**
@@ -56,9 +54,13 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
         T(n) = 2T(n/2) + n + 1
 
-        T(n) = 2(2T(n/4) + (n/2)) + n + 1
+        T(n) = 2(2T(n/4) + (n/2)) + 2n
 
-        T(n) = 4T(n/16) + 2(n/4) + n^2 + 2
+        T(n) = 4T(n/8) + 2(n/4) + 3n
+
+    we begin to see the form: 
+
+    2<sup>k</sup>(n/2<sup>k</sup>) + k * n
 
     you can set this guy to a constant at this point:
 
@@ -72,20 +74,35 @@ Place all written answers from `problemset-03.md` here for easier grading.
          
     we can then simplify to:
 
-    **asymptotic notation: O(n log n)**
-
     **Work: O(n)**
 
     **Span: O(n log n)**
 
 - **1e.**
 
+    This algorithm divides unevenly, and as such will have a dominant side as n grows.
 
+    The recurrence can be taken as: 
 
+        T(n) = T(2n/3) + T(n/3) + n+ 1
 
+        we can unwind both of these to get: 
 
-    
+        (2n/9 + 4n/9 + n/9) + (n/9 + n + n)
 
+        (4n/27 + 8n/27 + 2n/3) + (n/27 + 1 + 1) 
+
+    we can note that the left portion is beginning to dominate this process
+
+    analyzing it's structure we can determine using the master theorem that: 
+
+    O(n <sup>log <sub>3</sub> 1</sup>)
+
+    O(n<sup>0</sup>)
+
+    **work: O(n)**
+
+    **span: O(n)**
 
 - **2a.**
 
