@@ -39,16 +39,21 @@ Place all written answers from `problemset-03.md` here for easier grading.
     <details>
     Inductive Hypothesis: In every recursive call of iterate, it will return the boolean evaluation result comparing our target to our current index. 
 
-    Base Case: 
+    Base Case: c = 2, and n<sub>0</sub> = 2
 
-    (n - 1) + 1
+    (n - 1) + 1 <= c * n
 
+    the -1 and +1 can be eliminated, leaving: 
 
+    n <= c * n
 
+    Let c = 2 and n<sub>0</sub> = 2
+
+    For all n >= n<sub>0</sub> we have:
+        2 <= n 
+
+        n <= 2n
     </details>
-
-
-
 
 - **1d.**
 
@@ -91,6 +96,30 @@ Place all written answers from `problemset-03.md` here for easier grading.
     **Work: O(n)**
 
     **Span: O(n log n)**
+
+    Proof: 
+    <details>
+    Inductive Hypothesis: In every recursive call of reduce, this algorithm will split it's input and evaluate for equivalence on these subsets in parrallel 
+
+    Base Case: c = 2, and n<sub>0</sub> = 2
+
+    2T(n/2) <= c * n
+
+    
+
+    we can manipulate this to get: 
+
+    
+
+    Let c = 2 and n<sub>0</sub> = 2
+
+    For all n >= n<sub>0</sub> we have:
+        2 <= n 
+
+        n <= 2n
+    </details>
+
+    </details>
 
 - **1e.**
 
