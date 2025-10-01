@@ -43,7 +43,7 @@ Place all written answers from `problemset-03.md` here for easier grading.
     2. in parallel, check all of these divisions for equivalence to our 
        target value: 2w
     
-    3. recombine these results to achieve our final output: n
+    3. recombine these results to achieve our final output: 1
 
     this can be denoted as: 
 
@@ -53,25 +53,15 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
         T(n) = 4(2T(n/8) + 2(n/4)) + 3n
 
-    we begin to see the form: 
+    we begin to see the balanced form clearly and can specify: 
 
-    2<sup>k</sup>(n/2<sup>k</sup>) + k * n
-
-    you can set this guy to a constant at this point:
-
-    2<sup>log 2 n</sup> T(1) + log <sub>2</sub> i * n
-
-    this becomes equivalent to:
-
-    n * 1 + n log<sub>2</sub> * n
-
-    we can state that log<sub>2</sub> n dominates the constant at large growth,
+    log<sub>2</sub>2 + c * 1
          
     we can then simplify to:
 
-    **Work: O(n log n)**
+    **Work: O(n)**
 
-    **Span: O(n)**
+    **Span: O(n log n)**
 
 - **1e.**
 
@@ -89,7 +79,7 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
     we can note that the left portion is beginning to dominate this process
 
-    analyzing it's structure and root dominated growth we can see that c * n in the master case is:
+    analyzing it's structure and root dominated growth we can see that c * n is:
 
     **work: O(n)**
 
@@ -136,8 +126,6 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
     4. Else we need to add xs to the seen list using xs::seen, updating the current x state to be the recursive call of this operation 
 
-- **2b.**
-
     This program does 3 total operations: 
         
         The evaluation stub checks if y = x according to duplicates array: O(n)
@@ -146,7 +134,7 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
     This can be denoted as: 
 
-            T(n-1) + O(n)
+            T(n - 1) + O(n)
 
             with: n-1 being the size of our original list, which we are traversing and O(n) + 1 being the duplicates list which we are growing and evaluating according to size n 
 
@@ -156,20 +144,69 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
             T(n) = (T(n - 3) + T(n - 2) + T(n - 1) + n ^ 2)
 
-            We can denote this as balanced as the arrays only increment/decrement by 1 at each step, but that growth is quadratic since n increases by a exponent factor for every unfolding. This is because we need to re-traverse our duplicates array at every iteration to see if the current index is a duplicate. 
+        We can denote this as balanced as the arrays only increment/decrement by 1 at each step, but that growth is quadratic since n increases by a exponent factor for every unfolding. This is because we need to re-traverse our duplicates array at every iteration to see if the current index is a duplicate. 
 
-            Interesting to note that, even with work being largest at the root, the factor decrease is still 'linearly constant' and not by a constant fraction, so we cannot say it is leaf dominated.
+        Interesting to note that, even with work being largest at the root, the factor decrease is still 'linearly constant' and not by a constant fraction, so we cannot say it is leaf dominated.
 
     **work = O(n<sup>2</sup>)**
 
     **span = O(n<sup>2</sup>)**
 
+    This algorithm is quite bad and I am certain there is something better in existence. I had a great deal of difficulty trying to construct something better and apologize if this is unsatisfactory. The order preservation constraint made this difficult for me. 
+
+- **2b.**
+
+    Given a series of lists [[A0].....[Am]] of n unsorted elements with duplicates:
+
+        #seperate evaluating function to be called for every recursion
+
+        fun evaluator(y, []) = false
+            | evaluator(y, x::xs) = (y = x) orelse evaluator (y , xs)
+
+        fun recurseCheck ([], duplicate) = []
+                | recurseCheck (x :: xs, duplicate) = 
+
+                    #if we have already seen it across xs, then continue 
+
+                    if evaluator (x , duplicate) then:
+                        recurseCheck(xs , duplicate)
+
+                    #else we set x to the recursive iteration of #recurseCheck, adding x to the seen(duplicate) list
+
+                    else:
+                        x :: recurseCheck(xs, xs::duplicate)
+        
+        fun recurseCheckLists ([], duplicate) = []
+                | recurseCheckLists (x :: xss, duplicate) =
+
+                let 
+                    intermediary = recurseCheck(xs, duplicate)
+                    newDuplicate = intermediary :: duplicate
+
+                in 
+                    recurseCheclLists(xss, newDuplicate)
+                    
+        in recurseCheck(A, [])
+
+    1. Pass our list to recurseCheck and begin assigning values across the array. Assuming = [] base case passed
+
+    2. For every element x, we compare to the remaining tail xs, we then pass to evaluator to determine our duplicates list operation
+
+    3. If the evaluator determines according to our current index and the seen list that we have seen the current value before (y, x::xs) = (y = x) then it will return the boolean of this 
+
+    4. Else we need to add xs to the seen list using xs::seen, updating the current x state to be the recursive call of this operation 
+
+    5. We then iterate to the next list in the list of lists and continue this process within the recursive structure
+
+    I don't believe this would change the asymptotic notation or work calculation, but would have a significant effect on the average runtime. 
+
+    Since we are still operating iteratively, only on a much larger input.
+
 - **2c.**
 
-
-
-
-
+    It is my understanding that an iterative approach must be used when order is neccesary to be preserved. 
+    
+    I feel as though the nested nature of my second solution enables potential for parralell iterative approaches on all lists, with some sort of intermediary structure to store their respective orderings between them.
 
 - **3b.**
 
@@ -230,7 +267,7 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
         this can be denoted as: 
 
-        2T(n/2) + 1
+        2T(n/2) + c * 1
 
         2(2T(n/4)) + 2
 
@@ -251,8 +288,3 @@ Place all written answers from `problemset-03.md` here for easier grading.
     **work: O(n)**
 
     **span: O(log n)**
-
-
-
-
-

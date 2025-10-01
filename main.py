@@ -16,6 +16,8 @@ def iterate(f, x, a):
 
 # search an unordered list L for a key x using iterate
 def isearch(L, x):
+    #use this lambda with boolean or to build a list of True/False results for our calls to our function
+    #this will act as an accumulator for 
     return iterate(lambda a, b: a or b, False, [e == x for e in L])
 
 def test_isearch():
@@ -25,18 +27,6 @@ def test_isearch():
     assert isearch([], 2) == (2 in [1, 3, 5])
 
 test_isearch()
-
-# search an unordered list L for a key x using reduce
-def rsearch(L, x):
-    return iterate(lambda a, b: a or b, False, [e == x for e in L])
-
-def test_rsearch():
-    assert rsearch([1, 3, 5, 4, 2, 9, 7], 2) == (2 in [1, 3, 5, 4, 2, 9, 7])
-    assert rsearch([1, 3, 5, 2, 9, 7], 7) == (7 in [1, 3, 5, 2, 9, 7])
-    assert rsearch([1, 3, 5, 2, 9, 7], 99) == (99 in [1, 3, 5, 2, 9, 7])
-    assert rsearch([], 2) == (2 in [1, 3, 5])
-
-test_rsearch()
 
 def reduce(f, id_, a):
     print(a)
@@ -50,6 +40,18 @@ def reduce(f, id_, a):
         res = f(reduce(f, id_, a[:len(a)//2]),
                  reduce(f, id_, a[len(a)//2:]))
         return res
+
+# search an unordered list L for a key x using reduce
+def rsearch(L, x):
+    return reduce(lambda a, b: a or b, False, [e == x for e in L])
+
+def test_rsearch():
+    assert rsearch([1, 3, 5, 4, 2, 9, 7], 2) == (2 in [1, 3, 5, 4, 2, 9, 7])
+    assert rsearch([1, 3, 5, 2, 9, 7], 7) == (7 in [1, 3, 5, 2, 9, 7])
+    assert rsearch([1, 3, 5, 2, 9, 7], 99) == (99 in [1, 3, 5, 2, 9, 7])
+    assert rsearch([], 2) == (2 in [1, 3, 5])
+
+test_rsearch()
 
 def ureduce(f, id_, a):
     if len(a) == 0:
