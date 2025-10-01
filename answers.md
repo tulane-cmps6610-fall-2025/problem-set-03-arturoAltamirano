@@ -61,7 +61,7 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
     **Work: O(n)**
 
-    **Span: O(n log n)**
+    **Span: O(log n)**
 
 - **1e.**
 
@@ -89,7 +89,7 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
     I am constructing this according to documentation in the CMU notebook: https://www.cs.cmu.edu/~rwh/isml/book.pdf
 
-    I designed this to be recursive, as Standard ML seems to expect all iteration in the form of recursion according to Chapter 7.2 and 9.
+    I designed this to be recursive, as Standard ML and SPARC seem to expect all iteration in the form of recursion according to Chapter 7.2 and 9.
 
     I am also adapting the matching conventions outlined in 27.2 and in the regular expression package.
 
@@ -134,11 +134,11 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
     This can be denoted as: 
 
-            T(n - 1) + O(n)
+        T(n - 1) + O(n)
 
-            with: n-1 being the size of our original list, which we are traversing and O(n) + 1 being the duplicates list which we are growing and evaluating according to size n 
+        with: n-1 being the size of our original list, which we are traversing and O(n) + 1 being the duplicates list which we are growing and evaluating according to size n 
 
-            the recurrence unfolding: 
+        the recurrence unfolding: 
 
             T(n) = T(n - 2) + T(n - 1) + n
 
@@ -180,6 +180,7 @@ Place all written answers from `problemset-03.md` here for easier grading.
                 | recurseCheckLists (x :: xss, duplicate) =
 
                 let 
+                    # define another recursive iteration - essentially nesting this process to a # second level of iteration among lists 
                     intermediary = recurseCheck(xs, duplicate)
                     newDuplicate = intermediary :: duplicate
 
@@ -198,19 +199,23 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
     5. We then iterate to the next list in the list of lists and continue this process within the recursive structure
 
-    I don't believe this would change the asymptotic notation or work calculation, but would have a significant effect on the average runtime. 
+    I don't believe this would change the asymptotic notation or work calculation, but would have a significant effect on the average runtime.
 
-    Since we are still operating iteratively, only on a much larger input.
+    **work = O(n<sup>2</sup>)**
+
+    **span = O(n<sup>2</sup>)**
 
 - **2c.**
 
-    It is my understanding that an iterative approach must be used when order is neccesary to be preserved. 
+    An iterative approach must be used when order is neccesary to be preserved or associativity becomes a concern. 
     
-    I feel as though the nested nature of my second solution enables potential for parralell iterative approaches on all lists, with some sort of intermediary structure to store their respective orderings between them.
+    I feel as though the nested nature of my second solution enables potential for parralell iterative approaches on all lists, with some sort of intermediary structure to store their respective orderings between them, but I cannot think of the composition of such a solution.
 
 - **3b.**
 
-    This recursive iteration has a singular comparison (n - 1) and an addition operation (+1). 
+    This recursive iteration has a singular comparison (n - 1) and an addition operation (+1)
+
+    it can be denoted as:
 
         T(n) = T(n - 1) + c * 1
 
@@ -247,9 +252,7 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
         T(n - 3) + (n - 2) + (n - 1) + n + 3
 
-    use gauss' formula for this n-series 
-
-    n(n + 1)/2 which is equivalent to O(n<sup>2</sup>) across the series
+    this can be interpreted as:
 
     **work = O(n<sup>2</sup>)**
 
@@ -259,11 +262,11 @@ Place all written answers from `problemset-03.md` here for easier grading.
 
     This divide and conquer algorithm has 3 steps: 
 
-        divide the input into halves until no longer possible:  n/2
+    divide the input into halves until no longer possible:  n/2
 
-        evaluate equivalence to strings: +1
+    evaluate equivalence to strings: +1
 
-        merge all divisions and evaluations together: 2T
+    merge all divisions and evaluations together: 2T
 
         this can be denoted as: 
 

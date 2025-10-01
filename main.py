@@ -17,7 +17,7 @@ def iterate(f, x, a):
 # search an unordered list L for a key x using iterate
 def isearch(L, x):
     #use this lambda with boolean or to build a list of True/False results for our calls to our function
-    #this will act as an accumulator for 
+    #this will act as an accumulator for our iterative calls
     return iterate(lambda a, b: a or b, False, [e == x for e in L])
 
 def test_isearch():
@@ -146,8 +146,11 @@ def parens_match_scan(mylist):
     False
     
     """
+    #one call to map using our paren_map function 
     mapped = list(map(paren_map, mylist))
+    #one call to scan using the lambda structure from before
     prefixes, total = scan(lambda a, b: a + b, 0, mapped)
+    #return the combined boolean condition of our total and prefix evaluations for non-negative
     return total == 0 and(len(prefixes) == 0 or min(prefixes) >= 0)
 
 def scan(f, id_, a):
